@@ -14,6 +14,9 @@ import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSeriali
 import org.springframework.data.redis.serializer.RedisSerializationContext;
 import org.springframework.data.redis.serializer.StringRedisSerializer;
 
+/**
+ * host와 port 필드는 @Value 어노테이션을 사용하여 application.properties 파일에서 Redis 호스트 및 포트 정보를 가져옵니다.
+ */
 @RequiredArgsConstructor
 @Configuration
 public class CacheConfig {

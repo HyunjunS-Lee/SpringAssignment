@@ -18,12 +18,14 @@ public class AuthController {
     private final UserService userService;
     private final TokenProvider tokenProvider;
 
+    //회원가입
     @PostMapping("/signup")
     public ResponseEntity<?> signUp(@RequestBody Auth.SignUp request){
         var result = this.userService.register(request);
         return ResponseEntity.ok(result);
     }
 
+    //로그인
     @PostMapping("/signin")
     public ResponseEntity<?> signIn(@RequestBody Auth.SignIn request){
         var member = this.userService.authenticate(request);
