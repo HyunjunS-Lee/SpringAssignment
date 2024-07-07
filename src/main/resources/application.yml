@@ -1,0 +1,31 @@
+
+spring:
+  application:
+    name: assignment
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+
+  jpa:
+    hibernate:
+      ddl-auto: create
+    show-sql: true
+    defer-datasource-initialization: true
+
+
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test
+    username: saa
+    password:
+
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
+  jwt:
+    secret: c3ByaW5nLWJvb3QtYXNzaWdubWVudC1wcm9qZWN0LWp3dC1zZWNyZXQta2V5Cg==
