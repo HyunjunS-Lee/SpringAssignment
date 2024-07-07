@@ -1,12 +1,10 @@
 package assignment.spring.service;
 
-
 import assignment.spring.expection.ErrorResponse;
 import assignment.spring.model.Auth;
 import assignment.spring.model.entity.User;
 import assignment.spring.repository.UserRepository;
 import lombok.AllArgsConstructor;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -19,12 +17,12 @@ import static assignment.spring.type.ErrorCode.*;
 @AllArgsConstructor
 public class UserService implements UserDetailsService {
 
-    private final PasswordEncoder passwordEncoder;//실제 구현체 어떤 빈을 쓸건지 정의해야함(AppConfig에서 함)
+    private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return this.userRepository.findByUsername(username)//사용자 찾기
+        return this.userRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Couldn't find user -> " + username));//없을 시
     }
 
@@ -35,12 +33,6 @@ public class UserService implements UserDetailsService {
             throw new ErrorResponse(USER_ID_ALREADY_EXIT);
         }
         user.setPassword(this.passwordEncoder.encode(user.getPassword()));
-/*        User newUser = user.toEntity();
-        if (user.isPartner()) {
-            newUser.setRoles(List.of("ROLE_MANAGER"));
-        } else {
-            newUser.setRoles(List.of("ROLE_CUSTOMER"));
-        }*/
 
         return this.userRepository.save(user.toEntity());
     }

@@ -7,13 +7,10 @@ import assignment.spring.repository.ReservationRepository;
 import assignment.spring.repository.StoreRepository;
 import assignment.spring.repository.UserRepository;
 import lombok.AllArgsConstructor;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import static assignment.spring.type.ErrorCode.*;
 import static assignment.spring.type.StoreStatus.CONFIRMED;
 import static assignment.spring.type.StoreStatus.PENDING;
@@ -25,6 +22,7 @@ public class ReservationService {
     private StoreRepository storeRepository;
     private UserRepository userRepository;
 
+    //ReservationRequest에 포함된 정보를 바탕으로 새로운 예약을 생성합니다.
     public Reservation createReservation(ReservationRequest request) {
         Reservation reservation = new Reservation();
         reservation.setStore(storeRepository.findById(request.getStoreId())
@@ -36,11 +34,13 @@ public class ReservationService {
         return reservationRepository.save(reservation);
     }
 
+    //예약 ID를 기반으로 예약을 조회합니다.
     public Reservation getReservationById(Long reservationId) {
         return reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ErrorResponse(RESERVATION_NOT_FOUND));
     }
 
+    //예약의 상태를 CONFIRMED로 변경합니다.
     public void confirmReservation(Long reservationId) {
         Reservation reservation = reservationRepository.findById(reservationId)
                 .orElseThrow(() -> new ErrorResponse(RESERVATION_NOT_FOUND));

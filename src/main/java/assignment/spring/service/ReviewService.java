@@ -8,12 +8,9 @@ import assignment.spring.repository.ReviewRepository;
 import assignment.spring.repository.StoreRepository;
 import assignment.spring.repository.UserRepository;
 import lombok.AllArgsConstructor;
-
 import org.springframework.stereotype.Service;
-
 import java.time.LocalDateTime;
 import java.util.List;
-
 import static assignment.spring.type.ErrorCode.*;
 
 
@@ -24,6 +21,7 @@ public class ReviewService {
     private StoreRepository storeRepository;
     private UserRepository userRepository;
 
+    //사용자가 작성한 리뷰를 저장합니다.
     public Review writeReview(ReviewRequest request) {
         Review review = new Review();
         review.setStore(storeRepository.findById(request.getStoreId())
@@ -36,12 +34,15 @@ public class ReviewService {
         review.setUpdatedAt(LocalDateTime.now());
         return reviewRepository.save(review);
     }
+
+    //특정 상점에 대한 모든 리뷰를 조회합니다.
     public List<Review> getReviewsByStore(Long storeId) {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new ErrorResponse(STORE_NOT_FOUND));
         return reviewRepository.findByStore(store);
     }
 
+    //특정 리뷰를 업데이트합니다.
     public Review updateReview(Long reviewId, ReviewRequest request) {
         Review review = reviewRepository.findById(reviewId)
                 .orElseThrow(() -> new ErrorResponse(REVIEW_NOT_FOUND));

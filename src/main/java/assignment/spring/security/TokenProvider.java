@@ -12,10 +12,12 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
-
 import java.util.Date;
 import java.util.List;
 
+/**
+ *JWT(JSON Web Token)를 생성하고 검증하며, JWT를 이용하여 사용자 인증 정보를 관리하는 역할을 합니다.
+ */
 @Component
 @RequiredArgsConstructor
 public class TokenProvider {

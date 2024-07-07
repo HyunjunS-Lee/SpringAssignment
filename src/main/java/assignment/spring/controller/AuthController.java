@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -20,14 +19,14 @@ public class AuthController {
 
     //회원가입
     @PostMapping("/signup")
-    public ResponseEntity<?> signUp(@RequestBody Auth.SignUp request){
+    public ResponseEntity<?> signUp(@RequestBody Auth.SignUp request) {
         var result = this.userService.register(request);
         return ResponseEntity.ok(result);
     }
 
     //로그인
     @PostMapping("/signin")
-    public ResponseEntity<?> signIn(@RequestBody Auth.SignIn request){
+    public ResponseEntity<?> signIn(@RequestBody Auth.SignIn request) {
         var member = this.userService.authenticate(request);
         var token = this.tokenProvider.generateToken(member.getUsername(), member.getRoles());
         log.info("user login : " + request.getUsername());
